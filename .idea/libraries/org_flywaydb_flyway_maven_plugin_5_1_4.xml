@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="org.flywaydb:flyway-maven-plugin:5.1.4" type="repository">
+    <properties include-transitive-deps="false" maven-id="org.flywaydb:flyway-maven-plugin:5.1.4" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/flyway-maven-plugin-5.1.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

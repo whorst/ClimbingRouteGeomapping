@@ -1,0 +1,40 @@
+TODO:
+Partition the DB, Steal the Data, Write Tests
+
+1) https://www.mountainproject.com/data
+
+2) https://www.sisense.com/blog/postgres-vs-mongodb-for-storing-json-data/
+a) Mongo Pros- Ideal for unstructured data, better fo modifying data in the db, better for dynamic queries
+b) Mongo Cons- Limits DB Commands
+c) Postgres Pros- Good for a mix of structured and unstructured data, Better for json data and active data because of jsonb
+   and allow indexing
+d) Postgres Cons
+
+3) https://stackoverflow.com/questions/39224382/how-can-i-import-a-json-file-into-postgresql
+4) http://www.postgresqltutorial.com/postgresql-json/
+5) Adding a Primary Key: https://stackoverflow.com/a/22138797
+
+6) https://www.microsoft.com/en-us/download/details.aspx?id=53591 https://www.microsoft.com/en-us/download/confirmation.aspx?id=53339
+-Needed to setup SQL CMD Utilities
+
+7) https://stackoverflow.com/a/1051705
+-How to load dependencies (This fixed The Seven Hour Crisis of 12/19/2018)
+
+8) https://www.youtube.com/watch?v=F4d3ZND29sg
+-Used to Figure Out Flyway
+
+9) https://coderanch.com/t/466254/java/Removing-single-quotes-string
+- String are immutable
+
+10) https://www.youtube.com/watch?v=gU3DLOsw0Eg
+- Executing SQL Statements in Java
+
+https://www.mountainproject.com/data/get-routes-for-lat-lon?lat=44.7631&lon=-85.6206&maxDistance=1&minDiff=5.7&maxDiff=5.15&maxResults=100&key=200395695-227bc86ae2ef8282f4fc0b650e3c6d1f
+https://www.mountainproject.com/data/get-routes-for-lat-lon?lat=40.03&lon=-105.25&maxDistance=1&minDiff=5.6&maxDiff=5.10&maxResults=1&key=200395695-227bc86ae2ef8282f4fc0b650e3c6d1f
+
+11) Add the results to a Hashmap and split the state into halves or thirds
+
+12) https://stackoverflow.com/a/52957731
+-Mocking a HttpUrlConnection
+
+13) Write Tests First (Duh)

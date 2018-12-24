@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="java">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../Packages/Jackson/jackson-core-jackson-core-2.9.7/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../Packages/Jackson/jackson-core-jackson-core-2.9.7/src/test/java" />
+    </SOURCES>
+  </library>
+</component>
