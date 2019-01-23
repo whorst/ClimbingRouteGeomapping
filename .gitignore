@@ -1,0 +1,4 @@
+out/
+src/main/java/src/main/java/mysql-connector-java-8.0.13.jar
+target/
+jsonText.json

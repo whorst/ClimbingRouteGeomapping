@@ -7,18 +7,30 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.lang.Class;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 import static org.mockito.Mockito.*;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.mockito.Matchers;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 
 
 class MainTest {
+    ObjectMapper JsonObjectMapper = new ObjectMapper();
+    ObjectMapper JsonObjectMapperTwo = new ObjectMapper();
+
 
     String JsonNodeString = "{\"routes\":[{\"id\":105748490,\"name\":\"The Bastille Crack\",\"type\":\"Trad\",\"rating\":\"5.7\",\"stars\":4.5,\"starVotes\":1593,\"pitches\":5,\"location\":[\"Michigan\",\"Boulder\",\"Eldorado Canyon SP\",\"The Bastille\",\"The Bastille - N Face\"],\"url\":\"https://www.mountainproject.com/route/105748490/the-bastille-crack\",\"imgSqSmall\":\"https://cdn-files.apstatic.com/climb/1204790_sqsmall_1494042175.jpg\",\"imgSmall\":\"https://cdn-files.apstatic.com/climb/1204790_small_1494042175.jpg\",\"imgSmallMed\":\"https://cdn-files.apstatic.com/climb/1204790_smallMed_1494042175.jpg\",\"imgMedium\":\"https://cdn-files.apstatic.com/climb/1204790_medium_1494042175.jpg\",\"longitude\":-86.001,\"latitude\":39.8954}," +
             "{\"id\":105748490,\"name\":\"The Bastille Crack\",\"type\":\"Trad\",\"rating\":\"5.7\",\"stars\":4.5,\"starVotes\":1593,\"pitches\":5,\"location\":[\"Ohio\",\"Boulder\",\"Eldorado Canyon SP\",\"The Bastille\",\"The Bastille - N Face\"],\"url\":\"https://www.mountainproject.com/route/105748490/the-bastille-crack\",\"imgSqSmall\":\"https://cdn-files.apstatic.com/climb/1204790_sqsmall_1494042175.jpg\",\"imgSmall\":\"https://cdn-files.apstatic.com/climb/1204790_small_1494042175.jpg\",\"imgSmallMed\":\"https://cdn-files.apstatic.com/climb/1204790_smallMed_1494042175.jpg\",\"imgMedium\":\"https://cdn-files.apstatic.com/climb/1204790_medium_1494042175.jpg\",\"longitude\":-86.001,\"latitude\":39.8954}]}";
-    ObjectMapper JsonObjectMapper = new ObjectMapper();
     JsonNode ActualJsonObject = JsonObjectMapper.readTree(JsonNodeString);
+
+
+    String StateNodeString =   "{\"AK\":{ \"name\": \"Alaska\", \"min_lat\": 52.5964, \"max_lat\": 71.5232, \"min_lng\": -169.9146, \"max_lng\": -129.993}}";
+    JsonNode StateJsonNode = JsonObjectMapperTwo.readTree(StateNodeString);
+
+
     JsonNode RouteOne = ActualJsonObject.get("routes").get(0);
     JsonNode RouteTwo = ActualJsonObject.get("routes").get(1);
 
@@ -70,6 +82,35 @@ class MainTest {
                 "&lon=500&maxDistance=500&minDiff=5.7&maxDiff=5.15&maxResults=500" +
                 "&key=200395695-227bc86ae2ef8282f4fc0b650e3c6d1f";
         Assertions.assertEquals(ReturnedUrl, ActualUrl);
+    }
+
+    @Test
+    @DisplayName("Assert that the proper distance between two coordinates is returned")
+    void DistanceBetweenLatitudeAndLongitude(){
+        double LatitudeOne = 39.8954;
+        double LongitudeOne =  -86.001;
+        double LatitudeTwo = 34.0101;
+        double LongitudeTwo =  -84.3552;
+        String unit = "M";
+        Double ReturnedMiles = Main.DistanceBetweenLatitudeAndLongitude(LatitudeOne, LongitudeOne, LatitudeTwo, LongitudeTwo, unit);
+        Double Actual = 416.62121728755676;
+
+        Assertions.assertEquals(ReturnedMiles, Actual);
+    }
+
+
+    @Test
+    @DisplayName("Given a JsonNode which contains data about a specific state, Expect Longitude and Latitude to Be " +
+            "Iterated Over")
+    void IterateOverStateLatitudeAndLongitude() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, IOException {
+        Main MockMain = mock(Main.class);
+
+        System.out.println(StateJsonNode.toString());
+
+        Main.IterateOverStateLatitudeAndLongitude(StateJsonNode);
+//        Mockito.when(MockMain.IterateOverStateLatitudeAndLongitude()).thenReturn("Method Called");
+                Mockito.verify(MockMain).DistanceBetweenLatitudeAndLongitude(Mockito.anyDouble(), Mockito.anyDouble(),
+                        Mockito.anyDouble(), Mockito.anyDouble(), Mockito.anyString());
     }
 
     @Test

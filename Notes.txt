@@ -38,3 +38,17 @@ https://www.mountainproject.com/data/get-routes-for-lat-lon?lat=40.03&lon=-105.2
 -Mocking a HttpUrlConnection
 
 13) Write Tests First (Duh)
+
+14) GPS Coordinate Map https://www.gps-coordinates.net/
+
+15) Partitioning a table vs. creating anew one
+https://stackoverflow.com/a/30617774
+
+16) Using PostGres JSON with Java
+https://blog.2ndquadrant.com/processing-json/
+
+17) Jsonb/Postgres Beginner Guide
+https://www.postgresql.org/docs/9.3/functions-json.html
+
+18) Postgres Partitioning
+https://www.postgresql.org/docs/10/ddl-partitioning.html
