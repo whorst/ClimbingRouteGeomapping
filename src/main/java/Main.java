@@ -25,8 +25,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 
-        IterateOverStatesForPartitionedTables();
-        InitializeDBGivenJsonFile();
+//        IterateOverStatesForPartitionedTables();
+//        InitializeDBGivenJsonFile();
 
 //        GetDBConnection();
 //        ExecuteSQLQueryToReturnJsonFromDB();
@@ -127,20 +127,8 @@ public class Main {
         }
     }
 
-    static void WriteJsonNodeToFileUsingHashmap(String State) throws FileNotFoundException {
-        PrintWriter writer = new PrintWriter(String.format("RockRouteFilesByState/%sRockRoutes.json", State));
-        writer.print("[");
-        for (Map.Entry<String, JsonNode> entry : RockRouteNameJson.entrySet()) {
-            JsonNode RouteInfoJson = entry.getValue();
-            String StringifiedJson = RouteInfoJson.toString() + ",";
-            writer.print(StringifiedJson);
-        }
-        writer.print("]");
-        writer.close();
-    }
-
     static void ExecuteSQLQueryToReturnJsonFromDB() throws SQLException, IOException {
-        String SqlReturnStatement = "SELECT * FROM \"RockRouteSchema\".\"RockRouteInfoTest\" WHERE \"RockRouteInfo\"->>'id' = '108950326' ;";
+        String SqlReturnStatement = "SELECT * FROM \"RockRouteSchema\".\"RockRouteInfoTest\" WHERE \"RockRouteInfo\"->>'id' = '105843919' ;";
         PreparedStatement p = con.prepareStatement(SqlReturnStatement);
         ResultSet rs = p.executeQuery();
         while (rs.next()) {
@@ -157,25 +145,6 @@ public class Main {
         p.execute();
     }
 
-    static PGobject ReturnPostgresObjectFromString(String StringifiedJson) throws SQLException {
-        PGobject jsonObject = new PGobject();
-        jsonObject.setType("jsonb");
-        jsonObject.setValue(StringifiedJson);
-        return jsonObject;
-    }
-
-
-    static void StupidIdiot(String CurrentState) throws SQLException, IllegalAccessException, InstantiationException, ClassNotFoundException {
-        GetDBConnection();
-        String StringifiedJson = "{\"id\": 105748490,\"name\": \"The Bastille Crack\",\"location\": [\"Michigan\",\"Boulder\",\"Eldorado Canyon SP\",\"The Bastille\",\"The Bastille - N Face\"]}";
-        System.out.println(StringifiedJson);
-        String SqlInsertStatement = String.format("INSERT INTO \"RockRouteSchema\".\"RockRouteTable%s\"(\"RockRouteInfo\") VALUES (cast(? as JSONB));", CurrentState);
-        System.out.println(SqlInsertStatement);
-        PreparedStatement p = con.prepareStatement(SqlInsertStatement);
-        p.setString(1, StringifiedJson);
-        p.execute();
-        CloseDBConnection();
-    }
 
     static void CreatePartitionedTableGivenState(String State) throws SQLException {
         String createStatement = String.format("CREATE TABLE \"RockRouteSchema\".\"RockRouteTable%s\" (CONSTRAINT \"RockRouteInfo_%s_Check\" CHECK ((\"RockRouteInfo\" -> 'location')->> 0 = '%s'::text)) INHERITS (\"RockRouteSchema\".\"RockRouteInfoTest\");", State, State, State);
@@ -280,12 +249,46 @@ public class Main {
         return JsonObjectMapper.readTree(JsonString);
     }
 
+
+    static int NodeSize(JsonNode JsonNode) {
+        return JsonNode.get("routes").size();
+    }
+
+    static boolean IsRouteInState(JsonNode JsonNode, String State) {
+//        System.out.println(JsonNode.get("location").get(0).toString().replace("\"", "").equals(State));
+        if (JsonNode.get("location").get(0).toString().replace("\"", "").equals(State)) {
+            return true;
+        }
+        return false;
+    }
+
+    static void WriteJsonNodeToFileUsingHashmap(String State) throws FileNotFoundException {
+        PrintWriter writer = new PrintWriter(String.format("RockRouteFilesByState/%sRockRoutes.json", State));
+        writer.print("[");
+        for (Map.Entry<String, JsonNode> entry : RockRouteNameJson.entrySet()) {
+            JsonNode RouteInfoJson = entry.getValue();
+            String StringifiedJson = RouteInfoJson.toString() + ",";
+            writer.print(StringifiedJson);
+        }
+        writer.print("]");
+        writer.close();
+    }
+
     static void PrintNamesOfRockRoutesGivenJsonNode(JsonNode JsonNode) {
         /*
          * This is more of a helper function for me, this isnt really necessary to test
          */
         for (int i = 0; i < JsonNode.get("routes").size(); i++) {
             System.out.println(JsonNode.get("routes").get(i).get("name"));
+        }
+    }
+
+    public static void PrintHashMap(HashMap mp) {
+        Iterator it = mp.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            System.out.println(pair.getKey() + " = " + pair.getValue());
+//            it.remove(); // avoids a ConcurrentModificationException
         }
     }
 
@@ -300,26 +303,25 @@ public class Main {
         }
     }
 
-    static int NodeSize(JsonNode JsonNode) {
-        return JsonNode.get("routes").size();
+    static PGobject ReturnPostgresObjectFromString(String StringifiedJson) throws SQLException {
+        PGobject jsonObject = new PGobject();
+        jsonObject.setType("jsonb");
+        jsonObject.setValue(StringifiedJson);
+        return jsonObject;
     }
 
-    static boolean IsRouteInState(JsonNode JsonNode, String State) {
-//        System.out.println(JsonNode.get("location").get(0).toString().replace("\"", "").equals(State));
-        if (JsonNode.get("location").get(0).toString().replace("\"", "").equals(State)) {
-            return true;
-        }
-        return false;
+    static void StupidIdiot(String CurrentState) throws SQLException, IllegalAccessException, InstantiationException, ClassNotFoundException {
+        GetDBConnection();
+        String StringifiedJson = "{\"id\": 105748490,\"name\": \"The Bastille Crack\",\"location\": [\"Michigan\",\"Boulder\",\"Eldorado Canyon SP\",\"The Bastille\",\"The Bastille - N Face\"]}";
+        System.out.println(StringifiedJson);
+        String SqlInsertStatement = String.format("INSERT INTO \"RockRouteSchema\".\"RockRouteTable%s\"(\"RockRouteInfo\") VALUES (cast(? as JSONB));", CurrentState);
+        System.out.println(SqlInsertStatement);
+        PreparedStatement p = con.prepareStatement(SqlInsertStatement);
+        p.setString(1, StringifiedJson);
+        p.execute();
+        CloseDBConnection();
     }
 
-    public static void PrintHashMap(HashMap mp) {
-        Iterator it = mp.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            System.out.println(pair.getKey() + " = " + pair.getValue());
-//            it.remove(); // avoids a ConcurrentModificationException
-        }
-    }
     //    static void InitializeDBForGivenState(String[][] CoordinatesArray, String State, String MaxDistance) throws IOException,
 //            ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 //        for(int i=0; i<CoordinatesArray.length; i++){

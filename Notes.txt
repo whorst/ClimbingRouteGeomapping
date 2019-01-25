@@ -1,5 +1,5 @@
 TODO:
-Partition the DB, Steal the Data, Write Tests
+Write Tests, Copy Tables, Finish Off Data Layer(?), Design, Learn Spring
 
 1) https://www.mountainproject.com/data
 
@@ -52,3 +52,11 @@ https://www.postgresql.org/docs/9.3/functions-json.html
 
 18) Postgres Partitioning
 https://www.postgresql.org/docs/10/ddl-partitioning.html
+
+19) This is the query used to remove json keys from a DB
+    SELECT "RockRouteInfo"::jsonb - 'id'
+	    FROM "RockRouteSchema"."RockRouteInfoTest";
+
+	&&&&
+
+	UPDATE "RockRouteSchema"."RockRouteInfoTest" SET "RockRouteInfo" = "RockRouteInfo"::jsonb - 'url' - 'id';
