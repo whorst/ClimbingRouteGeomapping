@@ -1,5 +1,5 @@
 TODO:
-Write Tests, Copy Tables, Finish Off Data Layer(?), Design, Learn Spring
+    Design, Learn Spring
 
 1) https://www.mountainproject.com/data
 
@@ -41,7 +41,7 @@ https://www.mountainproject.com/data/get-routes-for-lat-lon?lat=40.03&lon=-105.2
 
 14) GPS Coordinate Map https://www.gps-coordinates.net/
 
-15) Partitioning a table vs. creating anew one
+15) Partitioning a table vs. creating a new one
 https://stackoverflow.com/a/30617774
 
 16) Using PostGres JSON with Java
@@ -60,3 +60,19 @@ https://www.postgresql.org/docs/10/ddl-partitioning.html
 	&&&&
 
 	UPDATE "RockRouteSchema"."RockRouteInfoTest" SET "RockRouteInfo" = "RockRouteInfo"::jsonb - 'url' - 'id';
+
+
+20) Mapbox Tutorial: https://www.youtube.com/watch?v=1BfiHQqiSug
+
+21) How the IoC interacts with Beans:
+https://www.youtube.com/watch?v=3K-uPe9SZLc
+
+22) This describes the different available annotations
+https://docs.spring.io/spring/docs/2.5.x/reference/beans.html#context-introduction-ctx-vs-beanfactory
+
+23) Possible Open Source JS map software:
+    Leaflet - https://leafletjs.com/examples/quick-start/
+    https://opensource.com/life/15/11/getting-started-web-mapping
+
+24) Handling Large Datasets in Leaflet:
+https://stackoverflow.com/questions/43015854/large-dataset-of-markers-or-dots-in-leaflet
