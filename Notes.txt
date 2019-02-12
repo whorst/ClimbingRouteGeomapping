@@ -76,3 +76,19 @@ https://docs.spring.io/spring/docs/2.5.x/reference/beans.html#context-introducti
 
 24) Handling Large Datasets in Leaflet:
 https://stackoverflow.com/questions/43015854/large-dataset-of-markers-or-dots-in-leaflet
+
+25) Spring Tutorial
+https://spring.io/guides/gs/rest-service/#scratch
+- for js
+https://spring.io/guides/gs/consuming-rest-jquery/
+
+26) Adding a Java File as your Source Folder
+https://stackoverflow.com/questions/4904052/what-does-this-symbol-mean-in-intellij-red-circle-on-bottom-left-corner-of-fil
+
+27) Import your project as a gradle/maven project and make sure the main directory contains your gradlew (demo\gradlew, not demo\demo\gradlew)
+
+28) Finding the Dependency Tree
+https://stackoverflow.com/questions/21645071/using-gradle-to-find-dependency-tree
+
+29) Querying Json Based On State
+SELECT * FROM "RockRouteSchema"."RockRouteInfoTest" where "RockRouteInfo"->>'location' LIKE '%Vermont%'
