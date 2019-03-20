@@ -91,4 +91,16 @@ https://stackoverflow.com/questions/4904052/what-does-this-symbol-mean-in-intell
 https://stackoverflow.com/questions/21645071/using-gradle-to-find-dependency-tree
 
 29) Querying Json Based On State
-SELECT * FROM "RockRouteSchema"."RockRouteInfoTest" where "RockRouteInfo"->>'location' LIKE '%Vermont%'
+SELECT * FROM "RockRouteSchema"."RockRouteInfoTest" where "RockRouteInfo"->>'location' LIKE '%["Michigan",%'
+
+30) Convert from Maven to Gradle
+https://stackoverflow.com/questions/45337002/use-mavens-pom-xml-for-gradle-build-dependencies
+
+31) React Best Practices
+https://reactjs.org/docs/thinking-in-react.html
+
+32) Functional vs Class Components
+https://react.christmas/2017/16
+
+33) Passing Css Styles from Parent to Child
+https://stackoverflow.com/questions/49678491/passing-css-styles-from-react-parent-component-to-its-child-component
